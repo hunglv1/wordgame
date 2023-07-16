@@ -52,6 +52,8 @@ The API documentation is available at: `http://localhost:3000/api-docs`
 
 # DB
 - DB name: wordgame
+- Using local MongoDB
+- More detail configurations in `app.js` file
 
 # License
 HungLV - free to use ^^
