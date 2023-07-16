@@ -23,6 +23,62 @@ const authenticateToken = (req, res, next) => {
     });
 };
 
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Try:
+ *       type: object
+ *       properties:
+ *         word:
+ *           type: string
+ *           description: The word that was tried
+ *         result:
+ *           type: string
+ *           description: The result of the word comparison
+ */
+
+/**
+ * @swagger
+ * /api/game:
+ *   post:
+ *     summary: Submit a word and get the comparison result
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               word:
+ *                 type: string
+ *                 description: The word to be checked
+ *             example:
+ *               word: example
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 word:
+ *                   type: string
+ *                   description: The submitted word
+ *                 response:
+ *                   type: string
+ *                   description: The comparison result
+ *                 game:
+ *                   type: array
+ *                   description: List of all tried words
+ *                   items:
+ *                     $ref: '#/components/schemas/Try'
+ *       '404':
+ *         description: Word not found in the database
+ *       '500':
+ *         description: Internal server error
+ */
 router.post('/', authenticateToken, async (req, res) => {
     try {
         const { word: wordToCheck } = req.body;
@@ -79,6 +135,25 @@ router.post('/', authenticateToken, async (req, res) => {
 });
 
 // Reset all tries and delete all records. DELETE method is used.
+/**
+ * @swagger
+ * /api/game/tries:
+ *   delete:
+ *     summary: Delete all tries
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: Success message
+ *       '500':
+ *         description: Internal server error
+ */
 router.delete('/tries', authenticateToken, async (req, res) => {
   try {
     await Try.deleteMany({});

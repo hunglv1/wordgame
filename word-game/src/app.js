@@ -7,6 +7,7 @@ const userRoutes = require('./routes/auth');
 const gameRouter = require('./routes/game');
 const app = express();
 const port = 3000;
+const setupSwagger = require('./swagger');
 
 app.use(bodyParser.json());
 app.use(express.json());
@@ -16,6 +17,9 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }));
+
+// setup Swagger
+setupSwagger(app);
 
 // Connect to MongoDB
 mongoose.connect('mongodb://127.0.0.1:27017/wordgame', {

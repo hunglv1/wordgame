@@ -22,6 +22,46 @@ const authenticateToken = (req, res, next) => {
 };
 
 // Create a new word. POST method is used
+/**
+ * @swagger
+ * components:
+ *   schemas:
+ *     Word:
+ *       type: object
+ *       properties:
+ *         name:
+ *           type: string
+ *           description: The name of the word
+ */
+/**
+ * @swagger
+ * /api/words:
+ *   post:
+ *     summary: Create a new word
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the word
+ *             example:
+ *               name: example
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Word'
+ *       '500':
+ *         description: Internal server error
+ */
 router.post('/', authenticateToken, (req, res) => {
     const { name } = req.body;
     const newWord = new Word({ name });
@@ -36,6 +76,25 @@ router.post('/', authenticateToken, (req, res) => {
 });
 
 // Retrieve all words. GET method is used
+/**
+ * @swagger
+ * /api/words:
+ *   get:
+ *     summary: Retrieve all words
+ *     security:
+ *       - bearerAuth: []
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Word'
+ *       '500':
+ *         description: Internal server error
+ */
 router.get('/', authenticateToken, (req, res) => {
     Word.find()
         .then((words) => {
@@ -47,6 +106,32 @@ router.get('/', authenticateToken, (req, res) => {
 });
 
 // Retrieve a word by ID. GET method is used
+/**
+ * @swagger
+ * /api/words/{id}:
+ *   get:
+ *     summary: Retrieve a word by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the word
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Word'
+ *       '404':
+ *         description: Word not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.get('/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
     Word.findById(id)
@@ -62,6 +147,44 @@ router.get('/:id', authenticateToken, (req, res) => {
 });
 
 // Update a word by ID. PUT method is used
+/**
+ * @swagger
+ * /api/words/{id}:
+ *   put:
+ *     summary: Update a word by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the word
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *                 description: The name of the word
+ *             example:
+ *               name: updated example
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Word'
+ *       '404':
+ *         description: Word not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.put('/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
     const { name } = req.body;
@@ -78,6 +201,36 @@ router.put('/:id', authenticateToken, (req, res) => {
 });
 
 // Delete a word by ID. DELETE method is used
+/**
+ * @swagger
+ * /api/words/{id}:
+ *   delete:
+ *     summary: Delete a word by ID
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the word
+ *     responses:
+ *       '200':
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                   description: The success message
+ *       '404':
+ *         description: Word not found
+ *       '500':
+ *         description: Internal server error
+ */
 router.delete('/:id', authenticateToken, (req, res) => {
     const { id } = req.params;
     Word.findByIdAndDelete(id)
