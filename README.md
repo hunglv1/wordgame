@@ -54,4 +54,4 @@ The API documentation is available at: `http://localhost:3000/api-docs`
 - DB name: wordgame
 
 # License
-Free
+HungLV - free to use ^^
