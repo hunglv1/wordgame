@@ -78,4 +78,15 @@ router.post('/', authenticateToken, async (req, res) => {
     }
 });
 
+// Reset all tries and delete all records. DELETE method is used.
+router.delete('/tries', authenticateToken, async (req, res) => {
+  try {
+    await Try.deleteMany({});
+
+    return res.json({ message: 'All tries reset successfully' });
+  } catch (error) {
+    return res.status(500).json({ error: error.message });
+  }
+});
+
 module.exports = router;
