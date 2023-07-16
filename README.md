@@ -1,4 +1,4 @@
-## The Word Game
+# The Word Game
 
 
 # Description
