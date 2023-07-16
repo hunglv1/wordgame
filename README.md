@@ -1,5 +1,5 @@
-# Project Name
-The Word Game
+## The Word Game
+
 
 # Description
 The Game is a word mapping game where users can search for a word by providing guesses. Each guess is evaluated against the target word, and the result is provided as feedback. The project uses Node.js and MongoDB to store and retrieve game data.
