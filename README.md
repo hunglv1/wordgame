@@ -32,6 +32,7 @@ TBD
 - PUT /api/words/:id: Update a word by ID
 - DELETE /api/words/:id: Delete a word by ID
 - POST /api/game: Create a new game and make guesses
+- DELETE /api/game/tries: reset and delete all tries in DB
 
 # License
 Free
