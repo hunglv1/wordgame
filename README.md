@@ -13,6 +13,7 @@ The Game is a word mapping game where users can search for a word by providing g
 - Node.js
 - MongoDB
 - JSON Web Tokens (JWT)
+- Swagger (API document)
 
 # Installation
 TBD
@@ -33,6 +34,9 @@ TBD
 - DELETE /api/words/:id: Delete a word by ID
 - POST /api/game: Create a new game and make guesses
 - DELETE /api/game/tries: reset and delete all tries in DB
+
+## API Documentation
+The API documentation is available at: `http://localhost:3000/api-docs`
 
 # License
 Free
